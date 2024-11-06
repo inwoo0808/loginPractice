@@ -7,6 +7,7 @@ import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kakao_practice.back.entity.CustomOAuth2User;
 import com.kakao_practice.back.entity.UserEntity;
 import com.kakao_practice.back.repository.UserRepository;
@@ -15,7 +16,7 @@ import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
-public class OAuth2ServiceImplement extends DefaultOAuth2UserService{
+public class OAuth2UserServiceImplement extends DefaultOAuth2UserService{
     
     private final UserRepository userRepository;
 
@@ -46,7 +47,7 @@ public class OAuth2ServiceImplement extends DefaultOAuth2UserService{
             userId = "naver_" + responseMap.get("id").substring(0, 14);
             email = responseMap.get("email");
             userEntity = new UserEntity(userId, email, "naver");
-            System.out.println("카카오 사용자 정보: " + oAuth2User.getAttributes());
+            System.out.println("네이버 사용자 정보: " + oAuth2User.getAttributes());
         }
 
         userRepository.save(userEntity);
